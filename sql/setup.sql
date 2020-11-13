@@ -7,7 +7,7 @@ CREATE TABLE users (
     password_hash TEXT NOT NULL,
     user_image TEXT,
     bio VARCHAR(250),
-    user_name TEXT NOT NULL,
+    user_name TEXT,
     user_location TEXT,
     books JSONB
 );
