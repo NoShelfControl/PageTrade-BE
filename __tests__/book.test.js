@@ -17,10 +17,6 @@ describe('User routes', () => {
       bio: 'Im a new user sup',
       userName: 'Test User',
       userLocation: 'Portland',
-      books: {
-        title: 'Test Title',
-        author: 'Test Author'
-      }
     }
     );
     return request(app)

@@ -17,11 +17,7 @@ describe('User routes', () => {
         userImage: 'test.jpg',
         bio: 'Im a new user sup',
         userName: 'Test User',
-        userLocation: 'Portland',
-        books: {
-          title: 'Test Title',
-          author: 'Test Author'
-        }
+        userLocation: 'Portland'
       })
       .then(res => {
         expect(res.body).toEqual({
@@ -30,11 +26,7 @@ describe('User routes', () => {
           userImage: 'test.jpg',
           bio: 'Im a new user sup',
           userName: 'Test User',
-          userLocation: 'Portland',
-          books: {
-            title: 'Test Title',
-            author: 'Test Author'
-          }
+          userLocation: 'Portland'
         });
       });
   });
