@@ -74,6 +74,38 @@ describe('User routes', () => {
           isTradeable: false,
         }]);
       });
+  });
+  it('deletes a book via DELETE', async() => {
+    await User.insert({
+      email: 'test@test.com',
+      passwordHash: 'word',
+      userImage: 'test.jpg',
+      bio: 'Im a new user sup',
+      userName: 'Test User',
+      userLocation: 'Portland',
+    });
 
+    await Book.insert({
+      title: 'Harry Potter',
+      author: 'ronald',
+      googleId: '1123123',
+      ownerId: 1,
+      image: 'harry.jpg',
+      isTradeable: false,
+    });
+
+    return request(app)
+      .delete('/api/v1/books/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: expect.any(String),
+          title: 'Harry Potter',
+          author: 'ronald',
+          googleId: '1123123',
+          ownerId: '1',
+          image: 'harry.jpg',
+          isTradeable: false,
+        });
+      });
   });
 });
