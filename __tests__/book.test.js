@@ -108,4 +108,46 @@ describe('User routes', () => {
         });
       });
   });
+
+  it('updates a book by id via PUT', async () => {
+    await User.insert({
+      email: 'test@test.com',
+      passwordHash: 'word',
+      userImage: 'test.jpg',
+      bio: 'Im a new user sup',
+      userName: 'Test User',
+      userLocation: 'Portland',
+    });
+    
+    const book = await Book.insert({
+      title: 'Harry Potter',
+      author: 'ronald',
+      googleId: '1123123',
+      ownerId: '1',
+      image: 'harry.jpg',
+      isTradeable: false,
+    });
+
+    return request(app)
+      .put(`/api/v1/books/${book.id}`)
+      .send({
+        title: 'Harry Potter',
+        author: 'ronald',
+        googleId: '1123123',
+        ownerId: '1',
+        image: 'harry.jpg',
+        isTradeable: false,
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          id: expect.any(String),
+          title: 'Harry Potter',
+          author: 'ronald',
+          googleId: '1123123',
+          ownerId: '1',
+          image: 'harry.jpg',
+          isTradeable: false,
+        });
+      });
+  });
 });
