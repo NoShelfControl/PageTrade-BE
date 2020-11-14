@@ -3,6 +3,7 @@ const pool = require('../lib/utils/pool');
 const request = require('supertest');
 const app = require('../lib/app');
 const User = require('../lib/models/User');
+const Book = require('../lib/models/Book');
 
 describe('User routes', () => {
   beforeEach(() => {
@@ -23,7 +24,7 @@ describe('User routes', () => {
       .post('/api/v1/books')
       .send({
         title: 'Harry Potter',
-        author: 'evil woman',
+        author: 'ronald',
         googleId: '1123123',
         ownerId: 1,
         image: 'harry.jpg',
@@ -33,7 +34,73 @@ describe('User routes', () => {
         expect(res.body).toEqual({
           id: expect.any(String),
           title: 'Harry Potter',
-          author: 'evil woman',
+          author: 'ronald',
+          googleId: '1123123',
+          ownerId: '1',
+          image: 'harry.jpg',
+          isTradeable: false,
+        });
+      });
+  });
+  it('finds all user books via GET', async() => {
+    await User.insert({
+      email: 'test@test.com',
+      passwordHash: 'word',
+      userImage: 'test.jpg',
+      bio: 'Im a new user sup',
+      userName: 'Test User',
+      userLocation: 'Portland',
+    });
+
+    await Book.insert({
+      title: 'Harry Potter',
+      author: 'ronald',
+      googleId: '1123123',
+      ownerId: 1,
+      image: 'harry.jpg',
+      isTradeable: false,
+    });
+
+    return request(app)
+      .get('/api/v1/books/1')
+      .then(res => {
+        expect(res.body).toEqual([{
+          id: expect.any(String),
+          title: 'Harry Potter',
+          author: 'ronald',
+          googleId: '1123123',
+          ownerId: '1',
+          image: 'harry.jpg',
+          isTradeable: false,
+        }]);
+      });
+  });
+  it('deletes a book via DELETE', async() => {
+    await User.insert({
+      email: 'test@test.com',
+      passwordHash: 'word',
+      userImage: 'test.jpg',
+      bio: 'Im a new user sup',
+      userName: 'Test User',
+      userLocation: 'Portland',
+    });
+
+    await Book.insert({
+      title: 'Harry Potter',
+      author: 'ronald',
+      googleId: '1123123',
+      ownerId: 1,
+      image: 'harry.jpg',
+      isTradeable: false,
+    });
+
+    return request(app)
+      .delete('/api/v1/books/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: expect.any(String),
+          title: 'Harry Potter',
+          author: 'ronald',
           googleId: '1123123',
           ownerId: '1',
           image: 'harry.jpg',
