@@ -13,7 +13,7 @@ CREATE TABLE users (
 CREATE TABLE books (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
-    author TEXT NOT NULL,
+    author TEXT,
     google_id TEXT NOT NULL,
     owner_id BIGINT NOT NULL REFERENCES users(id),
     image TEXT NOT NULL,
