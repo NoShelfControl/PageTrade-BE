@@ -22,7 +22,7 @@ beforeAll(async done => {
     });
 });
 
-describe('User routes', () => {
+describe('Book routes', () => {
 
   it('Creates a new Book via POST', async() => {
     await User.insert({
@@ -51,7 +51,7 @@ describe('User routes', () => {
           title: 'Harry Potter',
           author: 'ronald',
           googleId: '1123123',
-          ownerId: '2',
+          ownerId: expect.any(String),
           image: 'harry.jpg',
           isTradeable: false,
           isWatched: false,
@@ -86,7 +86,7 @@ describe('User routes', () => {
           title: 'Harry Potter',
           author: 'ronald',
           googleId: '1123123',
-          ownerId: '2',
+          ownerId: expect.any(String),
           image: 'harry.jpg',
           isTradeable: false,
           isWatched: false,
@@ -121,7 +121,7 @@ describe('User routes', () => {
           title: 'Harry Potter',
           author: 'ronald',
           googleId: '1123123',
-          ownerId: '2',
+          ownerId: expect.any(String),
           image: 'harry.jpg',
           isTradeable: false,
           isWatched: false,
@@ -166,7 +166,7 @@ describe('User routes', () => {
           title: 'Harry Potter',
           author: 'ronald',
           googleId: '1123123',
-          ownerId: '1',
+          ownerId: expect.any(String),
           image: 'harry.jpg',
           isTradeable: false,
           isWatched: false,
