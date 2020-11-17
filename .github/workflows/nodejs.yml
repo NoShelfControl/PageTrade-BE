@@ -17,6 +17,6 @@ jobs:
     - run: npm test
       env:
         CI: true
-        DATABASE_URL: postgres://alchemy:alchemy@postgres:5432/alchemy
+        DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
         APP_SECRET: secret
         SALT_ROUNDS: 4
