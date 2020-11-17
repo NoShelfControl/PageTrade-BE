@@ -17,5 +17,6 @@ CREATE TABLE books (
     google_id TEXT NOT NULL,
     owner_id BIGINT NOT NULL REFERENCES users(id),
     image TEXT NOT NULL,
-    is_tradeable BOOLEAN NOT NULL
+    is_tradeable BOOLEAN NOT NULL,
+    is_watched BOOLEAN NOT NULL
 );
