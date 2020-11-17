@@ -8,23 +8,25 @@ const { exec, execSync } = require('child_process');
 const { response } = require('../lib/app');
 const agent = request.agent(app);
 
-beforeAll(async done => {
-
-  agent
-    .post('/api/v1/signup')
-    .send({
-      email: 'ryan@diff.com',
-      password: '4321'
-    })
-    .end((err, response) => {
-      token = response.body.token;
-      done()
-    });
-});
-
 describe('Book routes', () => {
 
-  it('Creates a new Book via POST', async() => {
+  beforeEach(() => {
+    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
+  })
+
+  beforeEach(async done => {
+    agent
+      .post('/api/v1/signup')
+      .send({
+        email: 'ryan@diff.com',
+        password: '4321'
+      })
+      .end((err, response) => {
+        token = response.body.token;
+        done()
+      });
+  });
+  it('Creates a new Book via POST', async () => {
     await User.insert({
       email: 'test@test.com',
       passwordHash: 'word',
@@ -40,7 +42,6 @@ describe('Book routes', () => {
         title: 'Harry Potter',
         author: 'ronald',
         googleId: '1123123',
-        ownerId: 1,
         image: 'harry.jpg',
         isTradeable: false,
         isWatched: false,
@@ -58,7 +59,7 @@ describe('Book routes', () => {
         });
       });
   });
-  it('finds all user books via GET', async() => {
+  it('finds all user books via GET', async () => {
     await User.insert({
       email: 'test@test.com',
       passwordHash: 'word',
@@ -129,7 +130,7 @@ describe('Book routes', () => {
       });
   });
 
-  it('updates a book by id via PUT', async() => {
+  it('updates a book by id via PUT', async () => {
     await User.insert({
       email: 'test@test.com',
       passwordHash: 'word',
@@ -138,7 +139,7 @@ describe('Book routes', () => {
       userName: 'Test User',
       userLocation: 'Portland',
     });
-    
+
     const book = await Book.insert({
       title: 'Harry Potter',
       author: 'ronald',
