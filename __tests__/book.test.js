@@ -62,7 +62,7 @@ describe('User routes', () => {
     });
 
     return request(app)
-      .get('/api/v1/books/1')
+      .get('/api/v1/books')
       .then(res => {
         expect(res.body).toEqual([{
           id: expect.any(String),
@@ -109,7 +109,7 @@ describe('User routes', () => {
       });
   });
 
-  it('updates a book by id via PUT', async () => {
+  it('updates a book by id via PUT', async() => {
     await User.insert({
       email: 'test@test.com',
       passwordHash: 'word',
