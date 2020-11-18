@@ -3,7 +3,7 @@ const pool = require('../lib/utils/pool');
 const request = require('supertest');
 const app = require('../lib/app');
 const User = require('../lib/models/User');
-const Actions = require('../lib/models/Feed');
+const Action = require('../lib/models/Feed');
 const { response } = require('express');
 const agent = request.agent(app);
 
@@ -49,5 +49,23 @@ describe('Feed routes', () => {
             });
           });
       });
+
+    it('Gets all Actions via GET', async () => {
+        const actions = await Promise.all([
+            {
+                userId: '1',
+                actionType: 'Trade Request',
+                book: 'HP'
+            }
+        ].map(action => Action.insert(action)));
+
+        return request(app)
+          .get('/api/v1/feed')
+          .then(res => {
+              actions.forEach(action => {
+                  expect(res.body).toContainEqual(action);
+              });
+          });
+    })  ;
 })
 
