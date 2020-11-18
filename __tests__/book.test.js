@@ -4,8 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const User = require('../lib/models/User');
 const Book = require('../lib/models/Book');
-const { exec, execSync } = require('child_process');
-const { response } = require('../lib/app');
+const { response } = require('express');
 const agent = request.agent(app);
 
 describe('Book routes', () => {
