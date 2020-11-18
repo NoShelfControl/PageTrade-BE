@@ -66,6 +66,33 @@ describe('Feed routes', () => {
                   expect(res.body).toContainEqual(action);
               });
           });
-    })  ;
+    });
+    it('finds all user Actions via GET', async () => {
+        await User.insert({
+          email: 'test@test.com',
+          passwordHash: 'word',
+          userImage: 'test.jpg',
+          bio: 'Im a new user sup',
+          userName: 'Test User',
+          userLocation: 'Portland',
+        });
+    
+        await Action.insert({
+            userId: '1',
+            actionType: 'Trade Request',
+            book: 'HP'
+        });
+    
+        return agent
+          .get('/api/v1/feed')
+          .then(res => {
+            expect(res.body).toEqual([{
+              id: expect.any(String),
+              userId: '1',
+              actionType: 'Trade Request',
+              book: 'HP'
+            }]);
+          });
+      });
 })
 
