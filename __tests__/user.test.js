@@ -20,7 +20,7 @@ describe('User routes', () => {
       })
       .end((err, response) => {
         token = response.body.token;
-        done()
+        done();
       });
   });
 
@@ -47,7 +47,7 @@ describe('User routes', () => {
       });
   });
 
-  it('Updates a user via PUT', async () => {
+  it('Updates a user via PUT', async() => {
     const user = await User.insert({
       email: 'test@test.com',
       passwordHash: 'word',
@@ -58,7 +58,7 @@ describe('User routes', () => {
     });
 
     return agent
-      .put(`/api/v1/users/${user.id}`)
+      .put('/api/v1/users/')
       .send({
         email: 'test@test1.com',
         userImage: 'test.jpg',
