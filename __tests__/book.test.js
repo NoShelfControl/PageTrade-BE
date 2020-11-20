@@ -79,7 +79,7 @@ describe('Book routes', () => {
     });
 
     return agent
-      .get('/api/v1/books')
+      .get('/api/v1/books/user')
       .then(res => {
         expect(res.body).toEqual([{
           id: expect.any(String),
@@ -114,7 +114,7 @@ describe('Book routes', () => {
     });
 
     return agent
-      .delete('/api/v1/books/1123123')
+      .delete('/api/v1/books/user/1123123')
       .then(res => {
         expect(res.body).toEqual({
           id: expect.any(String),
@@ -150,7 +150,7 @@ describe('Book routes', () => {
     });
 
     return agent
-      .put(`/api/v1/books/${book.id}`)
+      .put(`/api/v1/books/user/${book.id}`)
       .send({
         title: 'Harry Potter',
         author: 'ronald',
