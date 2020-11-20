@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS actions;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    email TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
     user_image TEXT,
     bio VARCHAR(250),
